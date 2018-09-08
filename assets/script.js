@@ -66,7 +66,6 @@ d3.json('assets/working_map_v3.json', function(err, geojson) {
         var curDataID = +curProp.dataID;
         if(curDataID !== null){
           curProp['precinctData'] = data[curDataID];
-          console.log(curProp.precinctData);
         }
       }
      // grab total reporting precincts and update totals data
