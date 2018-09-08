@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Election Map</title>
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js'></script>
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://d3js.org/topojson.v2.min.js"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+  <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+  <div id="wrapper">
+    <header>
+      <div class="header-item-left vertical-align">
+        <h1>MA3 Election Results</h1>
+      </div>
+      <div class="header-item-right vertical-align">
+        <img src="assets/images/districts.svg" class="header-logo"/>
+      </div>
+      <div class="header-item-right vertical-align"></div>
+    </header>
+    <main id="page-content-wrapper">
+      <div class="sk-cube-grid" id="loader">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+        <div class="sk-cube sk-cube3"></div>
+        <div class="sk-cube sk-cube4"></div>
+        <div class="sk-cube sk-cube5"></div>
+        <div class="sk-cube sk-cube6"></div>
+        <div class="sk-cube sk-cube7"></div>
+        <div class="sk-cube sk-cube8"></div>
+        <div class="sk-cube sk-cube9"></div>
+      </div>
+      <div id="container"></div>
+      <div id="generalInfo" class="infoContainer">
+        <p id="stats">Currently Selected: <b> Dan Koh </b></p><br>
+        <p id="percent_report">% Reporting:</p><br>
+        <p id="total_count">Total Counted: </p>
+      </div>
+      <div id="switchBox" class="infoContainer">
+        <p>Town-Level Support</p>
+        <label class="switch">
+          <input type="checkbox" id="slider" onclick="changeDataChoice()">
+          <span class="slider"></span>
+        </label>
+        <p>Precinct-Level Support</p>
+      </div>
+    </main>
+  </div>
+  <script type="text/javascript" src="assets/script.js"></script>
+</body>
+</html>
