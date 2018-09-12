@@ -192,7 +192,6 @@ function refreshGraphs() {
   .rotate([74 + 30 / 60, -38 - 50 / 60]);
 
     // ******* Generate path *******
-    //console.log(width, height)
   projection.fitSize([svgWidth, height], ma_json);
 
   mapPath = d3.geoPath().projection(projection);
@@ -200,7 +199,6 @@ function refreshGraphs() {
   var enter = mapLayer.selectAll(".precinct")
   .data(ma_json.features, function(d){
     if(d.properties.dataID !== null){
-      //console.log(d);
       return d.properties.dataID;
     }
   })
@@ -351,7 +349,6 @@ function changeDataChoice() {
   } else {
     mapChoice = 'Town';
   }
-  // console.log(mapChoice);
   refreshData();
 }
 
@@ -393,7 +390,6 @@ function refreshStackedBar(){
   totalsLayer.selectAll("rect")
     .data(function(d, i) {
       d[0].index = i;
-      //console.log(d);
       return d;
     })
   .enter().append("rect")
@@ -560,7 +556,6 @@ function updateBar(curLocationData){
     })
     .attr('height', barHeight)
     .attr('fill', function(d){
-      //console.log(d.data);
       return barColor(d.key);
     })
     bar.append('text')
