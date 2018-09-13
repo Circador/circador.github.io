@@ -119,9 +119,9 @@ function calculateSelectedData(){
 
     var diffDict = {};
     for (var j = 0; j < sortedPrecinctData.length; j++){
-      diffDict[sortedPrecinctData[j].key] = (sortedPrecinctData[j].value/curPrecTotal);
+      diffDict[sortedPrecinctData[j].key] = (+sortedPrecinctData[j].value/curPrecTotal);
     }
-    curProp.precinctData.support_diff = diffDict;
+    curProp.precinctData.support_diff = +diffDict;
 
     // ***************** UPDATE TOWN LEVEL DATA *******************
     var curTownTotal = curProp.townData.total_counted;
