@@ -313,9 +313,40 @@ function clicked(d) {
     .attr('transform', 'translate(' + svgWidth / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
 };
 
+function barOver(d){
+    d3.select(this.parentNode).select('rect')
+      .style('opacity', "0.8")
+      .style('stroke-width', '2')
+      .style('stroke', '#ddd')
+    tooltip.transition()
+      .duration(200)
+      .style("opacity", .9);
+}
+function barMove() {
+    var name = d3.select(this.parentNode).select('rect').attr('title');
+    var d = d3.select(this.parentNode).select('rect').datum()[0];
+    tooltip
+      .html(nameFormat(name) +
+      "<br>" +
+      ((d[1]-d[0])/totalVoters*100).toFixed(1)+"%")
+      .style("left", (d3.event.pageX + 12) + "px")
+      .style("top", (d3.event.pageY - 12) + "px");
+}
+
+function barOut(d){
+    mapLayer.selectAll('.precinct')
+      .style('fill', function(d){return centered && d===centered ? '#D5708B' : color(d);});
+    tooltip.transition()
+      .duration(500)
+      .style("opacity", 0);
+    d3.select(this.parentNode).select('rect')
+      .style('opacity', 1.0)
+      .style('stroke-width', 0);
+}
+
 function barClick(d){
   // update selected candidate display
-  curCandidate = d3.select(this).attr('title');
+  curCandidate = d3.select(this.parentNode).select('rect').attr('title');
   if(curCandidate !== selectedCandidate){
     selectedCandidate = curCandidate
     d3.select('#stats')
@@ -402,38 +433,18 @@ function refreshStackedBar(){
       return Object.keys(d.data)[d.index];
     })
     .on('click', barClick)
-    .on('mouseover', function(d){
-      d3.select(this)
-        .style('opacity', "0.8")
-        .style('stroke-width', '2')
-        .style('stroke', '#ddd')
-      tooltip.transition()
-        .duration(200)
-        .style("opacity", .9);
-    })
-    .on('mouseout', function(d) {
-      mapLayer.selectAll('.precinct')
-        .style('fill', function(d){return centered && d===centered ? '#D5708B' : color(d);});
-      tooltip.transition()
-        .duration(500)
-        .style("opacity", 0);
-      d3.select(this)
-        .style('opacity', 1.0)
-        .style('stroke-width', 0);
-    })
-    .on('mousemove', function(d) {
-      tooltip
-        .html(nameFormat(Object.keys(d.data)[d.index]) +
-        "<br>" +
-        ((d[1]-d[0])/totalVoters*100).toFixed(1)+"%")
-        .style("left", (d3.event.pageX + 12) + "px")
-        .style("top", (d3.event.pageY - 12) + "px");
-    })
+    .on('mouseover', barOver)
+    .on('mouseout', barOut)
+    .on('mousemove', barMove)
     totalsLayer.append('text')
       .attr('x', function(d){
         return d[0][0]/totalVoters *width + 6;
       })
       .attr('y', height/40)
+      .on('click', barClick)
+      .on('mouseover', barOver)
+      .on('mouseout', barOut)
+      .on('mousemove', barMove)
       .style('text-anchor', 'start')
       .style('alignment-baseline', 'central')
       .style('font', '12px sans-serif')
@@ -451,6 +462,10 @@ function refreshStackedBar(){
         return d[0][1]/totalVoters*width - 6;
       })
       .attr('y', height/40)
+      .on('click', barClick)
+      .on('mouseover', barOver)
+      .on('mouseout', barOut)
+      .on('mousemove', barMove)
       .style('text-anchor', 'end')
       .style('alignment-baseline', 'central')
       .style('font', '12px sans-serif')
